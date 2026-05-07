@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OLI · Investor Deck · Seed Round 2026</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;background:#0d0d0e;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden;}
+
+  .deck{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+
+  .slide{
+    position:absolute;
+    width:min(96vw, calc(94vh * 16/9));
+    aspect-ratio:16/9;
+    background:#fff;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 30px 100px rgba(0,0,0,.45),0 6px 20px rgba(0,0,0,.3);
+    opacity:0;pointer-events:none;
+    transform:scale(.985) translateY(8px);
+    transition:opacity .42s ease,transform .42s ease;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .slide.active{opacity:1;pointer-events:auto;transform:none;}
+
+  /* PDF page rendered as image */
+  .slide img{
+    width:100%;height:100%;
+    object-fit:contain;
+    display:block;
+    user-select:none;
+    -webkit-user-drag:none;
+  }
+
+  /* Live HTML slide via iframe — auto-scales to fit 16:9 viewport */
+  .slide.embed{background:#FFFFFF;}
+  .slide.embed iframe{
+    width:1440px;height:810px;
+    border:0;display:block;
+    transform-origin:top left;
+  }
+  .slide.embed .scaler{
+    width:1440px;height:810px;
+    transform-origin:top left;
+    position:relative;
+  }
+
+  /* Navigation chrome */
+  .nav{
+    position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+    display:flex;gap:6px;align-items:center;z-index:100;
+    background:rgba(20,20,22,.78);backdrop-filter:blur(14px);
+    padding:8px 14px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .nav-btn{
+    background:transparent;border:none;color:#fff;cursor:pointer;
+    font-family:inherit;font-size:11px;font-weight:400;
+    letter-spacing:.18em;padding:6px 12px;border-radius:999px;
+    text-transform:uppercase;opacity:.85;
+  }
+  .nav-btn:hover{opacity:1;background:rgba(255,255,255,.08);}
+  .nav-btn:disabled{opacity:.3;cursor:not-allowed;}
+  .nav-counter{
+    font-size:11px;color:#fff;font-variant-numeric:tabular-nums;
+    letter-spacing:.18em;min-width:60px;text-align:center;
+    padding:0 6px;border-left:1px solid rgba(255,255,255,.12);
+    border-right:1px solid rgba(255,255,255,.12);
+  }
+  .hint{
+    position:fixed;top:14px;right:18px;z-index:100;
+    color:rgba(255,255,255,.45);font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;font-weight:500;
+  }
+
+  /* Print: one slide per page (image slides only — iframe slides are skipped) */
+  @media print{
+    @page{size:1440px 810px;margin:0;}
+    html,body{background:#fff;overflow:visible;}
+    .deck{position:static;}
+    .slide{
+      position:relative;width:1440px;height:810px;
+      page-break-after:always;
+      opacity:1;pointer-events:auto;transform:none;
+      box-shadow:none;border-radius:0;aspect-ratio:auto;inset:auto;
+    }
+    .nav,.hint{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hint" id="hint">← → to navigate · 1 / 21</div>
+
+<div class="deck" id="deck">
+
+  <!-- Slide 1 — Title (PDF page 1) -->
+  <section class="slide active"><img src="OLI_Deck_0705_assets/page-01.png" alt="Slide 1"></section>
+
+  <!-- Slide 2 — Founder (PDF page 2) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-02.png" alt="Slide 2"></section>
+
+  <!-- Slide 3 — The Market (PDF page 3) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-03.png" alt="Slide 3"></section>
+
+  <!-- Slide 4 — Market Momentum (LIVE HTML, embedded with working links) -->
+  <section class="slide embed">
+    <div class="scaler" id="scaler-4">
+      <iframe src="slide_market_momentum.html" loading="lazy" title="Market Momentum"></iframe>
+    </div>
+  </section>
+
+  <!-- Slide 5 — The Problem (PDF page 4) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-04.png" alt="Slide 5"></section>
+
+  <!-- Slide 6 — The Solution (PDF page 5) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-05.png" alt="Slide 6"></section>
+
+  <!-- Slide 7 — Six months / team (PDF page 6) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-06.png" alt="Slide 7"></section>
+
+  <!-- Slide 8 — First Principles (PDF page 7) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-07.png" alt="Slide 8"></section>
+
+  <!-- Slide 9 — The App (PDF page 8) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-08.png" alt="Slide 9"></section>
+
+  <!-- Slide 10 — Discovery / Flying Blind (PDF page 9) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-09.png" alt="Slide 10"></section>
+
+  <!-- Slide 11 — Hidden Problem (PDF page 10) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-10.png" alt="Slide 11"></section>
+
+  <!-- Slide 12 — Data In / Value Out (PDF page 11) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-11.png" alt="Slide 12"></section>
+
+  <!-- Slide 13 — Agentic Future (PDF page 12) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-12.png" alt="Slide 13"></section>
+
+  <!-- Slide 14 — GTM Channel 1: Brands become the channel (PDF page 13) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-13.png" alt="Slide 14"></section>
+
+  <!-- Slide 15 — GTM Channel 2: Full margin / data / ownership (PDF page 14) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-14.png" alt="Slide 15"></section>
+
+  <!-- Slide 16 — Industry Validation (PDF page 15) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-15.png" alt="Slide 16"></section>
+
+  <!-- Slide 17 — Three revenue streams (PDF page 16) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-16.png" alt="Slide 17"></section>
+
+  <!-- Slide 18 — Roadmap (PDF page 17) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-17.png" alt="Slide 18"></section>
+
+  <!-- Slide 19 — Closing (PDF page 18) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-18.png" alt="Slide 19"></section>
+
+  <!-- Slide 20 — Appendix divider (PDF page 19) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-19.png" alt="Slide 20"></section>
+
+  <!-- Slide 21 — Competitive landscape (PDF page 20) -->
+  <section class="slide"><img src="OLI_Deck_0705_assets/page-20.png" alt="Slide 21"></section>
+
+</div>
+
+<nav class="nav">
+  <button class="nav-btn" id="prev">← Prev</button>
+  <span class="nav-counter" id="counter">1 / 21</span>
+  <button class="nav-btn" id="next">Next →</button>
+</nav>
+
+<script>
+(function(){
+  const slides  = Array.from(document.querySelectorAll('.slide'));
+  const counter = document.getElementById('counter');
+  const hint    = document.getElementById('hint');
+  const total   = slides.length;
+  let i = 0;
+
+  // Scale embedded iframe slides so the fixed 1440×810 inner page fits the responsive .slide box.
+  function scaleEmbeds(){
+    document.querySelectorAll('.slide.embed').forEach(slide => {
+      const scaler = slide.querySelector('.scaler');
+      if(!scaler) return;
+      const r = slide.getBoundingClientRect();
+      const sx = r.width  / 1440;
+      const sy = r.height / 810;
+      const s  = Math.min(sx, sy);
+      scaler.style.transform = 'scale(' + s + ')';
+      // Center it
+      const ox = (r.width  - 1440 * s) / 2;
+      const oy = (r.height -  810 * s) / 2;
+      scaler.style.left = ox + 'px';
+      scaler.style.top  = oy + 'px';
+      scaler.style.position = 'absolute';
+    });
+  }
+
+  function go(n){
+    i = Math.max(0, Math.min(total - 1, n));
+    slides.forEach((s,k) => s.classList.toggle('active', k === i));
+    counter.textContent = (i+1) + ' / ' + total;
+    if(hint) hint.textContent = '← → to navigate · ' + (i+1) + ' / ' + total;
+    if(history.replaceState) history.replaceState(null, '', '#' + (i+1));
+    scaleEmbeds();
+  }
+
+  document.getElementById('prev').addEventListener('click', () => go(i-1));
+  document.getElementById('next').addEventListener('click', () => go(i+1));
+
+  document.addEventListener('keydown', (e) => {
+    // Don't intercept keys when the user is interacting with the embedded iframe
+    if(e.target && e.target.tagName === 'IFRAME') return;
+    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){ e.preventDefault(); go(i+1); }
+    else if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); go(i-1); }
+    else if(e.key === 'Home'){ go(0); }
+    else if(e.key === 'End'){ go(total - 1); }
+  });
+
+  // Wheel navigation (debounced)
+  let lastWheel = 0;
+  document.addEventListener('wheel', (e) => {
+    const now = Date.now();
+    if(now - lastWheel < 700) return;
+    if(Math.abs(e.deltaY) < 30) return;
+    lastWheel = now;
+    go(i + (e.deltaY > 0 ? 1 : -1));
+  }, {passive:true});
+
+  // Touch swipe
+  let touchStart = null;
+  document.addEventListener('touchstart', (e) => { touchStart = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    if(touchStart === null) return;
+    const dx = e.changedTouches[0].clientX - touchStart;
+    if(Math.abs(dx) > 60) go(i + (dx < 0 ? 1 : -1));
+    touchStart = null;
+  });
+
+  window.addEventListener('resize', scaleEmbeds);
+
+  // Honor #N hash on load (e.g., #4 jumps directly to slide 4)
+  const m = location.hash.match(/^#(\d+)$/);
+  if(m) go(parseInt(m[1], 10) - 1);
+  else  scaleEmbeds();
+})();
+</script>
+
+</body>
+</html>

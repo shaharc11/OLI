@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OLI — Market Momentum</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #E8E4DF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .slide {
+      width: 1440px;
+      height: 810px;
+      background: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      transform-origin: center center;
+    }
+
+    /* ── HEADER ───────────────────────────────────────── */
+    .header {
+      position: absolute;
+      top: 26px; left: 72px; right: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 20;
+    }
+    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo-ring {
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 1.5px solid #2A1A10;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: linear-gradient(135deg, #FB923C, #EA580C);
+      box-shadow: 0 0 6px rgba(251,146,60,0.70);
+    }
+    .logo-wordmark {
+      font-size: 11px; font-weight: 300;
+      letter-spacing: 0.40em; color: #2A1A10;
+    }
+    .header-label {
+      font-size: 9.5px; font-weight: 400;
+      letter-spacing: 0.24em; color: #4F6591;
+      text-transform: uppercase;
+    }
+
+    /* ── TITLE ────────────────────────────────────────── */
+    .title-area {
+      position: absolute;
+      top: 64px; left: 72px; right: 72px;
+    }
+    .eyebrow {
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: rgba(251,146,60,0.70);
+      margin-bottom: 8px;
+    }
+    .headline {
+      font-size: 30px; font-weight: 200;
+      letter-spacing: -0.01em; line-height: 1.05;
+      color: #2A1A10;
+    }
+    .headline em {
+      font-style: italic;
+      color: #2A1A10;
+      opacity: 0.55;
+      font-weight: 200;
+    }
+
+    /* ── CARD GRID ───────────────────────────────────── */
+    .grid {
+      position: absolute;
+      top: 250px; left: 72px;
+      width: 1296px; height: 320px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 1fr;
+      gap: 18px;
+    }
+
+    .card {
+      background: #FFFFFF;
+      border: 1px solid #E4E0DB;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+    }
+    .card:hover {
+      border-color: #FB923C;
+      box-shadow: 0 6px 24px rgba(251,146,60,0.14);
+      transform: translateY(-2px);
+    }
+    .card:hover .caption-link {
+      color: #EA580C;
+    }
+
+    .card-image-wrap {
+      flex: 1;
+      overflow: hidden;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center center;
+      display: block;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: auto;
+    }
+    /* placeholder shown if image fails to load */
+    .card-image-wrap::before {
+      content: attr(data-fallback);
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: rgba(42,26,16,0.30);
+      background: repeating-linear-gradient(
+        45deg,
+        #F4EFE8,
+        #F4EFE8 10px,
+        #ECE4D9 10px,
+        #ECE4D9 20px
+      );
+      z-index: 0;
+    }
+    .card-image-wrap img {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-caption {
+      padding: 10px 16px 11px;
+      border-top: 1px solid #EFEBE6;
+      background: #FAFAF8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .caption-left {
+      display: flex; align-items: center; gap: 9px;
+    }
+    .caption-label {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(42,26,16,0.40);
+    }
+    .caption-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: #FB923C;
+      flex-shrink: 0;
+    }
+    .caption-date {
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: #2A1A10;
+    }
+    .caption-link {
+      font-size: 9.5px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: rgba(42,26,16,0.45);
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.2s ease;
+    }
+    .caption-link::after {
+      content: "↗";
+      font-size: 11px;
+      color: #FB923C;
+    }
+
+    /* ── CLOSING LINE ────────────────────────────── */
+    .closing {
+      position: absolute;
+      bottom: 70px; left: 72px; right: 72px;
+      text-align: center;
+      font-size: 18px; font-weight: 300;
+      font-style: italic;
+      color: #2A1A10;
+      letter-spacing: -0.005em;
+    }
+    .closing b {
+      font-weight: 500;
+      color: #EA580C;
+      font-style: italic;
+    }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    .footer {
+      position: absolute;
+      bottom: 0; left: 72px; right: 72px; height: 40px;
+      border-top: 1px solid #E4E0DB;
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 20;
+    }
+    .footer span {
+      font-size: 9.5px; font-weight: 300;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(42,26,16,0.22);
+    }
+  </style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-ring"><div class="logo-dot"></div></div>
+      <span class="logo-wordmark">O L I</span>
+    </div>
+    <span class="header-label">Confidential &nbsp;·&nbsp; Seed Round &nbsp;·&nbsp; 2026</span>
+  </header>
+
+  <!-- Title -->
+  <div class="title-area">
+    <p class="eyebrow">Market Momentum &nbsp;·&nbsp; 2026</p>
+    <h1 class="headline">The market is <em>sprinting</em>.<br>Everyone's racing to build the intelligence layer.</h1>
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="grid">
+
+    <!-- WHOOP -->
+    <a class="card" href="https://www.bloomberg.com/news/articles/2026-03-31/whoop-raises-575-million-at-a-10-billion-valuation-on-its-way-to-an-ipo" target="_blank" rel="noopener">
+      <div class="card-image-wrap" data-fallback="Image: momentum_whoop.png">
+        <img src="OLI_Deck_0705_assets/momentum_whoop.png" alt="WHOOP raises $575M at $10.1B valuation"
+             onerror="this.style.display='none'">
+      </div>
+      <div class="card-caption">
+        <span class="caption-left">
+          <span class="caption-label">Announced</span>
+          <span class="caption-dot"></span>
+          <span class="caption-date">March 31, 2026</span>
+        </span>
+        <span class="caption-link">bloomberg.com</span>
+      </div>
+    </a>
+
+    <!-- OURA -->
+    <a class="card" href="https://insider.fitt.co/oura-acquires-galen-ai-health-companion/" target="_blank" rel="noopener">
+      <div class="card-image-wrap" data-fallback="Image: momentum_oura.jpg">
+        <img src="OLI_Deck_0705_assets/momentum_oura.jpg" alt="Oura acquires Galen AI"
+             onerror="this.style.display='none'">
+      </div>
+      <div class="card-caption">
+        <span class="caption-left">
+          <span class="caption-label">Announced</span>
+          <span class="caption-dot"></span>
+          <span class="caption-date">April 17, 2026</span>
+        </span>
+        <span class="caption-link">ouraring.com</span>
+      </div>
+    </a>
+
+    <!-- GOOGLE -->
+    <a class="card" href="https://x.com/mweinbach/status/2052389818798104997" target="_blank" rel="noopener">
+      <div class="card-image-wrap" data-fallback="Image: momentum_google.png">
+        <img src="OLI_Deck_0705_assets/momentum_google.png" alt="Google Health launches with Gemini AI coach"
+             onerror="this.style.display='none'">
+      </div>
+      <div class="card-caption">
+        <span class="caption-left">
+          <span class="caption-label">Announced</span>
+          <span class="caption-dot"></span>
+          <span class="caption-date">April 2026</span>
+        </span>
+        <span class="caption-link">x.com/mweinbach</span>
+      </div>
+    </a>
+
+    <!-- APPLE -->
+    <a class="card" href="https://www.bloomberg.com/news/articles/2026-02-05/apple-is-scaling-back-plans-for-new-ai-based-health-coach-service" target="_blank" rel="noopener">
+      <div class="card-image-wrap" data-fallback="Image: momentum_apple.png">
+        <img src="OLI_Deck_0705_assets/momentum_apple.png" alt="Apple plans AI-powered Health+ coach"
+             onerror="this.style.display='none'">
+      </div>
+      <div class="card-caption">
+        <span class="caption-left">
+          <span class="caption-label">Reposted</span>
+          <span class="caption-dot"></span>
+          <span class="caption-date">February 5, 2026</span>
+        </span>
+        <span class="caption-link">bloomberg.com</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Closing line -->
+  <div class="closing">
+    Everyone is building the dashboard. <b>Nobody has the supplement signal.</b>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>O L I</span>
+    <span>Market Momentum</span>
+  </footer>
+
+</div>
+
+<script>
+  function scaleSlide() {
+    const slide = document.querySelector('.slide');
+    const scaleX = window.innerWidth  / 1440;
+    const scaleY = window.innerHeight / 810;
+    const scale  = Math.min(scaleX, scaleY) * 0.96;
+    slide.style.transform = `scale(${scale})`;
+  }
+  scaleSlide();
+  window.addEventListener('resize', scaleSlide);
+</script>
+</body>
+</html>
